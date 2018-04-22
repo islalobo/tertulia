@@ -1,0 +1,127 @@
+<?php
+/**
+ * @file
+ * Describe what your module does here.
+ */
+
+/**
+ * Implements hook_help().
+ *
+ * Displays help and module information.
+ *
+ * @param path
+ *   Which path of the site we're using to display help
+ * @param arg
+ *   Array that holds the current path as returned from arg() function
+ */
+function tertulia_help($path, $arg) {
+	switch ($path) {
+    case "admin/help#tertulia": {
+      return '<p>' . t("Insert help text for your module here") . '</p>';
+    } break;
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function tertulia_block_info() {
+  $blocks['tertulia_twitter'] = array(
+    'info' => t('Tertulia Twitter Module'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+		'region' => 'Right sidebar',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+  );
+
+	$blocks['tertulia_facebook_embed_posts'] = array(
+    'info' => t('Tertulia Facebook Embed Posts'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+		'region' => 'Right sidebar',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+  );
+
+	$blocks['tertulia_share'] = array(
+    'info' => t('Tertulia Share'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+		'region' => 'Right sidebar',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function tertulia_block_view($delta = '') {
+	$block = array();
+
+	switch($delta) {
+    case 'tertulia_twitter':
+      $block['content'] = get_tertulia_twitter_contents();
+    	return $block;
+      break;
+
+		case 'tertulia_facebook_embed_posts':
+			$block['content'] = get_tertulia_facebook_embed_posts_contents();
+			return $block;
+			break;
+
+		case 'tertulia_share':
+			$block['content'] = get_tertulia_share_contents();
+			return $block;
+			break;
+  }
+}
+
+/**
+ * Get theme contentts.
+ */
+function get_tertulia_twitter_contents() {
+  $twitter = array();
+	$twitter['twitter_id'] = '388421350609539072';
+  return theme('get_tertulia_twitter_contents', array('twitter' => $twitter));
+}
+
+/**
+ * Get theme contentts.
+ */
+function get_tertulia_facebook_embed_posts_contents() {
+	$items = array();
+	$items['title'] = 'El Instituto de Defensa Legal';
+	$items['appId'] = '256911498208494';
+	$items['facebook_link'] = 'https://www.facebook.com/InstitutoDefensaLegal';
+	return theme('get_tertulia_facebook_embed_posts_contents', array('items' => $items));
+}
+
+/**
+ * Get theme contentts.
+ */
+function get_tertulia_share_contents() {
+	$items = array();
+	return theme('get_tertulia_share_contents', array('items' => $items));
+}
+
+/**
+ * Implements hook_theme().
+ */
+function tertulia_theme() {
+	$module_path = drupal_get_path('module', 'tertulia');
+	$base = array(
+		'path' => "$module_path/templates",
+	);
+	return array(
+		'get_tertulia_twitter_contents' => $base + array(
+			'template' => 'tertulia-twitter',  // leave off .tpl.php
+			'variables' => array('items' => NULL,),
+		),
+		'get_tertulia_facebook_embed_posts_contents' => $base + array(
+			'template' => 'tertulia-facebook-embed-posts',  // leave off .tpl.php
+			'variables' => array('items' => NULL,),
+		),
+		'get_tertulia_share_contents' => $base + array(
+			'template' => 'tertulia-share',  // leave off .tpl.php
+			'variables' => array('items' => NULL,),
+		),
+	);
+}

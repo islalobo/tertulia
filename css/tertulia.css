@@ -1,0 +1,19 @@
+/**
+ * Progress bar.
+ *
+ * @see system.theme.css
+ */
+
+.tertulia-twitter {
+  border: 1px solid #eeeeee;
+  border-radius: 3px;
+}
+
+.tertulia-social-share {
+  border: 1px solid #eeeeee;
+  padding: 15px 0px 10px 0px;
+  margin: 10px 0;
+  border-radius: 3px;
+  background: #eeeeee;
+  background-image: url("img/debut-light.png");
+}

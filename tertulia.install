@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * Implements hook_install().
+ *
+ * This function is called when the module is activated for the first time in the module section.
+ */
+function tertulia_install() {
+  drupal_install_schema( 'tertulia' );
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * This function is called when the module is uninstalled from the modules uninstall section
+ */
+function tertulia_uninstall() {
+  drupal_uninstall_schema( 'tertulia' );
+}

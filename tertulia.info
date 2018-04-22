@@ -1,0 +1,9 @@
+name = Tertulia: Easy Social Module
+description = Creates various social modules using Twitter and Facebook API
+core = 7.x
+version = 1.x-0.1
+package = "Tertulia"
+
+stylesheets[all][] = css/tertulia.css
+scripts[] = js/tertulia.js
+configure = admin/config/content/tertulia
